@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: report
+  config:
+    import: optional:file:.env[.properties]
+
+server:
+  port: 8090
+
+report:
+  python:
+    base-url: http://localhost:8091
+    timeout: 60s
