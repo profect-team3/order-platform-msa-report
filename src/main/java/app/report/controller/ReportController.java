@@ -22,8 +22,9 @@ public class ReportController {
 	}
 
 	@PostMapping
+	// public ResponseEntity<?> create(@Valid @RequestBody GenerateRequest req, @RequestHeader HttpHeaders headers) {
 	public ResponseEntity<?> create(@RequestBody GenerateRequest req, @RequestHeader HttpHeaders headers) {
-		var jobId = service.requestGeneration(requestUserId(headers), req.storeId(), req.period());
+		var jobId = service.requestGeneration(requestUserId(headers), req.storeId());
 		return ResponseEntity.accepted().body(java.util.Map.of("jobId", jobId));
 	}
 
