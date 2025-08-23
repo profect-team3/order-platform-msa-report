@@ -6,7 +6,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import lombok.RequiredArgsConstructor;
 
-import app.report.model.dto.request.ReportPayload;
+import app.report.model.dto.request.ReportGenerationRequest;
 
 @Component
 @RequiredArgsConstructor
@@ -15,7 +15,7 @@ public class ReportClient {
 
 	public record GenerateJsonRes(String url, String localPath, String createdAt) {}
 
-	public GenerateJsonRes generate(ReportPayload payload) {
+	public GenerateJsonRes generate(ReportGenerationRequest payload) {
 		return reportWebClient.post().uri("/report/generate-json")
 			.bodyValue(payload)
 			.retrieve()

@@ -6,7 +6,6 @@ plugins {
 
 group = 'goorm.delivery'
 version = '0.0.1-SNAPSHOT'
-description = 'order-platform-msa-report'
 
 java {
     toolchain {
