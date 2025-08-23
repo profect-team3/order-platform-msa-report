@@ -6,7 +6,6 @@ plugins {
 
 group = 'goorm.delivery'
 version = '0.0.1-SNAPSHOT'
-description = 'order-platform-msa-report'
 
 java {
     toolchain {
@@ -19,10 +18,10 @@ configurations {
         extendsFrom annotationProcessor
     }
 }
-
-repositories {
-    mavenCentral()
-}
+//
+//repositories {
+//    mavenCentral()
+//}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
