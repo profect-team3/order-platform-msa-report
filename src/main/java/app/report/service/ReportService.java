@@ -16,7 +16,7 @@ import app.report.model.repository.ReportJobStore;
 import app.report.model.entity.enums.ReportStatus;
 import lombok.RequiredArgsConstructor;
 
-import app.report.model.dto.request.ReportPayload;
+import app.report.model.dto.request.ReportGenerationRequest;
 import app.report.model.repository.ReportDatasetRepository;
 
 @Service
@@ -24,7 +24,7 @@ import app.report.model.repository.ReportDatasetRepository;
 public class ReportService {
 	private final ReportClient client;
 	private final ReportJobStore jobs;
-	private final ReportDatasetRepository datasetRepo;
+	private final ReportDatasetRepository datasetRepository;
 
 	public String requestGeneration(String ownerUserId, String storeId) {
 		var jobId = UUID.randomUUID().toString();
@@ -32,15 +32,16 @@ public class ReportService {
 
 		CompletableFuture.runAsync(() -> {
 			try {
-				// 최근 한 달 범위 [start, end) — KST 기준 롤링 1개월
+				// 최근 한 달 범위 [start, end) — KST 기준
 				var zone = ZoneId.of("Asia/Seoul");
 				var nowKst = ZonedDateTime.now(zone).toLocalDateTime();
-				var start = nowKst.minusMonths(1); // 오늘 기준 1개월 전 (롤링)
-				var end   = nowKst;
+				var start = nowKst.minusMonths(1);  // 오늘 기준 1개월 전
+				var end = nowKst;
 
-				var orders = datasetRepo.findStoreOrdersWithPeriod(storeId, start, end);
-
-				var payload = new ReportPayload(storeId, orders);
+				var orders = datasetRepository.findStoreOrdersWithPeriod(storeId, start, end);
+				var reviews = datasetRepository.findStoreReviewsWithPeriod(storeId, start, end);
+				var payload = new ReportGenerationRequest(storeId, orders, reviews);
+				// System.out.println(payload);
 				var res = client.generate(payload);
 
 				jobs.markDone(jobId, res.url(), res.localPath(), res.createdAt());

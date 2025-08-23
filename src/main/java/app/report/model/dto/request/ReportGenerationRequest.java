@@ -1,4 +1,3 @@
-// app/report/model/dto/ReportPayload.java
 package app.report.model.dto.request;
 
 import java.time.LocalDate;
@@ -6,12 +5,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public record ReportPayload(
+public record ReportGenerationRequest(
 	String storeId,
-	List<OrderRow> orders
+	List<OrderRow> orders,
+	List<ReviewRow> reviews
 ) {
 	public record OrderRow(
-		UUID orderId,
+		String orderId,
 		int totalPrice,
 		String orderChannel,
 		String receiptMethod,
@@ -23,14 +23,20 @@ public record ReportPayload(
 		String usersex,           // nullable
 		LocalDate birthdate,     // nullable
 		boolean isFirstOrderInStore,
-		int orderSeqInStore,     // 1이면 첫 주문, 2부터 재주문
+		int orderSeqInStore,
 		List<OrderItemRow> items
 	) {}
 
 	public record OrderItemRow(
-		UUID orderItemId,
+		String orderItemId,
 		String menuName,
 		int price,
 		int quantity
+	) {}
+
+	public record ReviewRow(
+		int rating,
+		String content,
+		LocalDateTime createdAt
 	) {}
 }
