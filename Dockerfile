@@ -8,10 +8,10 @@ COPY order-platform-msa-report/build.cloud.gradle ./order-platform-msa-report/bu
 
 RUN ./gradlew :order-platform-msa-report:build -x test
 
-FROM eclipse-temurin:17-jre-jammy
+FROM eclipse-temurin:17-jre-slim
 WORKDIR /app
 
 COPY --from=builder /workspace/order-platform-msa-report/build/libs/*.jar /app/application.jar
 
 EXPOSE 8090
-ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "/app/application.jar"]
+ENTRYPOINT ["java", "-jar", "/app/application.jar"]
