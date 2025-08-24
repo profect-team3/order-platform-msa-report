@@ -8,7 +8,7 @@ COPY order-platform-msa-report/build.cloud.gradle ./order-platform-msa-report/bu
 
 RUN ./gradlew :order-platform-msa-report:build -x test
 
-FROM eclipse-temurin:17-jre-slim
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
 COPY --from=builder /workspace/order-platform-msa-report/build/libs/*.jar /app/application.jar
