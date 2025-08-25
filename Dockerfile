@@ -6,7 +6,7 @@ COPY gradle ./gradle
 COPY order-platform-msa-report ./order-platform-msa-report
 COPY order-platform-msa-report/build.cloud.gradle ./order-platform-msa-report/build.gradle
 
-RUN ./gradlew :order-platform-msa-report:build -x test
+RUN ./gradlew :order-platform-msa-report:bootJar -x test
 
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
