@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public record ReportGenerationRequest(
+public record PythonReportRequest(
 	String storeId,
 	List<OrderRow> orders,
 	List<ReviewRow> reviews

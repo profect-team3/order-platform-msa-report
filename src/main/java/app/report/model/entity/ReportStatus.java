@@ -1,3 +1,3 @@
-package app.report.model.entity.enums;
+package app.report.model.entity;
 
 public enum ReportStatus { PENDING, DONE, FAILED }

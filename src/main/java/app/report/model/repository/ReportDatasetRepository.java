@@ -1,7 +1,7 @@
 // app/report/model/repository/ReportDatasetRepository.java
 package app.report.model.repository;
 
-import app.report.model.dto.request.ReportGenerationRequest;
+import app.report.model.dto.request.PythonReportRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -22,7 +22,7 @@ public class ReportDatasetRepository {
 
 	 // 첫/재주문 여부는 전체 히스토리에서 판단
 	 // 최종 SELECT에서 [start, end) 기간으로 표시만 제한.
-	public List<ReportGenerationRequest.OrderRow> findStoreOrdersWithPeriod(
+	public List<PythonReportRequest.OrderRow> findStoreOrdersWithPeriod(
 		String storeId, LocalDateTime startInclusive, LocalDateTime endExclusive
 	) {
 		String sql = """
@@ -85,11 +85,11 @@ public class ReportDatasetRepository {
 		// System.out.println("==========sql :::"+ sql);
 
 		return jdbc.query(sql, (rs, rowNum) -> {
-			List<ReportGenerationRequest.OrderItemRow> items = null;
+			List<PythonReportRequest.OrderItemRow> items = null;
 			try {
 				items = om.readValue(
 					rs.getString("items_json"),
-					new TypeReference<List<ReportGenerationRequest.OrderItemRow>>() {}
+					new TypeReference<List<PythonReportRequest.OrderItemRow>>() {}
 				);
 				// System.out.println(items);
 			} catch (JsonProcessingException e) {
@@ -97,7 +97,7 @@ public class ReportDatasetRepository {
 				throw new RuntimeException(e);
 			}
 
-			return new ReportGenerationRequest.OrderRow(
+			return new PythonReportRequest.OrderRow(
 				rs.getObject("orders_id").toString(),
 				rs.getInt("total_price"),
 				rs.getString("order_channel"),
@@ -116,7 +116,7 @@ public class ReportDatasetRepository {
 		}, storeId, startInclusive, endExclusive);
 	}
 
-	public List<ReportGenerationRequest.ReviewRow> findStoreReviewsWithPeriod(
+	public List<PythonReportRequest.ReviewRow> findStoreReviewsWithPeriod(
 		String storeId, LocalDateTime startInclusive, LocalDateTime endExclusive
 	) {
 		String sql = """
@@ -135,7 +135,7 @@ public class ReportDatasetRepository {
 		// System.out.println("findstore review" + sql);
 		return jdbc.query(
 			sql,
-			(rs, rowNum) -> new ReportGenerationRequest.ReviewRow(
+			(rs, rowNum) -> new PythonReportRequest.ReviewRow(
 				rs.getInt("rating"),
 				rs.getString("content"),
 				rs.getTimestamp("created_at").toLocalDateTime()
