@@ -1,10 +1,10 @@
 package app.report.model.repository;
 
-import app.report.model.entity.enums.ReportStatus;
+import app.report.model.entity.ReportStatus;
 
 public record ReportJobMeta(
 	String jobId,
-	String ownerUserId,
+	Long ownerUserId,
 	String storeId,
 	ReportStatus status,
 	String url,

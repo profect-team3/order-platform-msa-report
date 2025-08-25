@@ -4,13 +4,13 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import app.report.model.entity.enums.ReportStatus;
+import app.report.model.entity.ReportStatus;
 
 @Component
 public class ReportJobStore {
 	private final Map<String, ReportJobMeta> jobs = new java.util.concurrent.ConcurrentHashMap<>();
 
-	public void createPending(String jobId, String ownerUserId, String storeId) {
+	public void createPending(String jobId, Long ownerUserId, String storeId) {
 		jobs.put(jobId, new ReportJobMeta(
 			jobId, ownerUserId, storeId, ReportStatus.PENDING, null, null, null, null
 		));
