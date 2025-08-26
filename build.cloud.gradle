@@ -26,7 +26,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     // db
-    runtimeOnly 'org.postgresql:postgresql'
+        // DB
+    runtimeOnly   "org.postgresql:postgresql"
+
+    // Security / OAuth2
+    implementation files("libs/msa-common-security-1.0.8-plain.jar")
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 
