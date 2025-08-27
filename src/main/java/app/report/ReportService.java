@@ -6,7 +6,6 @@ import java.time.ZonedDateTime;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 
 import app.global.apiPayload.exception.GeneralException;
@@ -63,12 +62,13 @@ public class ReportService {
 		);
 	}
 
-	public FileSystemResource getFile(String jobId, Long userId) {
+	public String getReportUrl(String jobId, Long userId) {
 		ReportJobMeta meta = jobs.get(jobId);
 		if (meta == null) throw new GeneralException(ReportErrorStatus.REPORT_JOB_NOT_FOUND);
 		if (!meta.ownerUserId().equals(userId)) throw new GeneralException(ReportErrorStatus.REPORT_ACCESS_DENIED);
 		if (meta.status() != ReportStatus.DONE) throw new GeneralException(ReportErrorStatus.REPORT_GENERATION_PENDING);
+		if (meta.url() == null || meta.url().isBlank()) throw new GeneralException(ReportErrorStatus.REPORT_GENERATION_FAILED);
 
-		return new FileSystemResource(meta.localPath());
+		return meta.url();
 	}
 }

@@ -31,16 +31,11 @@ public class ReportController {
 	}
 
 	@GetMapping("/{jobId}/download")
-	public ApiResponse<Resource> download(@PathVariable String jobId, Authentication authentication) {
+	public ApiResponse<String> download(@PathVariable String jobId, Authentication authentication) {
 
 		Long userId = Long.parseLong(tokenPrincipalParser.getUserId(authentication));
-		var file = service.getFile(jobId, userId);
+		String url = service.getReportUrl(jobId, userId);
 
-		if (!file.exists())
-			throw new GeneralException(ReportErrorStatus.REPORT_GENERATION_FAILED);
-		return ApiResponse.onSuccess(ReportSuccessStatus.REPORT_GENERATED, file);
-			// .contentType(MediaType.APPLICATION_PDF)
-			// .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getFilename())
-			// .body(file);
+		return ApiResponse.onSuccess(ReportSuccessStatus.REPORT_GENERATED, url);
 	}
 }
