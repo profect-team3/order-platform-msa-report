@@ -3,9 +3,9 @@ package app.report;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
 
-import app.commonSecurity.TokenPrincipalParser;
-import app.global.apiPayload.ApiResponse;
-import app.global.apiPayload.exception.GeneralException;
+import app.commonUtil.apiPayload.ApiResponse;
+import app.commonUtil.apiPayload.exception.GeneralException;
+import app.commonUtil.security.TokenPrincipalParser;
 import app.report.model.dto.request.ReportRequest;
 import app.report.model.dto.response.ReportResponse;
 import app.report.status.ReportErrorStatus;

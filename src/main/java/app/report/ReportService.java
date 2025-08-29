@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 
-import app.global.apiPayload.exception.GeneralException;
+import app.commonUtil.apiPayload.exception.GeneralException;
 import app.report.client.PythonReportClient;
 import app.report.model.dto.response.ReportResponse;
 import app.report.model.repository.ReportJobMeta;
