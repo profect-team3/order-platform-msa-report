@@ -1,0 +1,25 @@
+FROM gradle:8.8-jdk17 AS builder
+
+WORKDIR /workspace
+
+COPY gradlew .
+COPY gradlew.bat .
+COPY gradle ./gradle
+
+COPY build.cloud.gradle build.gradle
+COPY settings.gradle .
+
+COPY src ./src
+COPY libs ./libs
+
+RUN ./gradlew bootJar
+
+FROM eclipse-temurin:17-jre-jammy
+
+WORKDIR /app
+
+COPY --from=builder /workspace/build/libs/*.jar /app/application.jar
+
+EXPOSE 8090
+
+ENTRYPOINT ["java", "-jar", "/app/application.jar"]

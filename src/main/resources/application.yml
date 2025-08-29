@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: report
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${OAUTH_JWKS_URI:http://localhost:8083/oauth/jwks}
+jwt:
+  audience: ${AUTH_INTERNAL_AUDIENCE:internal-services}
+
+server:
+  port: 8090
+
+report:
+  python:
+    base-url: http://localhost:8091
+    timeout: 60s
