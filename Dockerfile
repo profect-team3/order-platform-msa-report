@@ -1,17 +1,25 @@
 FROM gradle:8.8-jdk17 AS builder
+
 WORKDIR /workspace
 
-COPY gradlew gradlew.bat settings.gradle ./
+COPY gradlew .
+COPY gradlew.bat .
 COPY gradle ./gradle
-COPY order-platform-msa-report ./order-platform-msa-report
-COPY order-platform-msa-report/build.cloud.gradle ./order-platform-msa-report/build.gradle
 
-RUN ./gradlew :order-platform-msa-report:bootJar -x test
+COPY build.cloud.gradle build.gradle
+COPY settings.gradle .
+
+COPY src ./src
+COPY libs ./libs
+
+RUN ./gradlew bootJar
 
 FROM eclipse-temurin:17-jre-jammy
+
 WORKDIR /app
 
-COPY --from=builder /workspace/order-platform-msa-report/build/libs/*.jar /app/application.jar
+COPY --from=builder /workspace/build/libs/*.jar /app/application.jar
 
 EXPOSE 8090
+
 ENTRYPOINT ["java", "-jar", "/app/application.jar"]
