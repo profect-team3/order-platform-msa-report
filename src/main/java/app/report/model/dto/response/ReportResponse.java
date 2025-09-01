@@ -1,5 +1,8 @@
 package app.report.model.dto.response;
 
+import lombok.Builder;
+
+@Builder
 public record ReportResponse(
 	String jobId
 	// String status          // PENDING | DONE | FAILED
