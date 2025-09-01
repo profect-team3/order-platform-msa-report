@@ -1,14 +1,11 @@
 package app.report;
 
-import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import app.commonUtil.apiPayload.ApiResponse;
-import app.commonUtil.apiPayload.exception.GeneralException;
 import app.commonUtil.security.TokenPrincipalParser;
 import app.report.model.dto.request.ReportRequest;
 import app.report.model.dto.response.ReportResponse;
-import app.report.status.ReportErrorStatus;
 import app.report.status.ReportSuccessStatus;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
