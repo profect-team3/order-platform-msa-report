@@ -22,4 +22,4 @@ COPY --from=builder /workspace/build/libs/*.jar /app/application.jar
 
 EXPOSE 8090
 
-ENTRYPOINT ["java", "-jar", "/app/application.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "/app/application.jar"]

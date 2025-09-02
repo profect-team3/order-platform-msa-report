@@ -1,10 +1,8 @@
-name: ECR Push - report stage
+name: ECR Push - report
 
 on:
   push:
-    branches: ["stage", "dev"]
-  pull_request:
-    branches: ["stage", "dev"]
+    branches: ["dev"]
 
 jobs:
   build-and-push:
