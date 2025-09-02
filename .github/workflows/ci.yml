@@ -2,7 +2,7 @@ name: ECR Push - report
 
 on:
   push:
-    branches: ["stage"]
+    branches: ["dev"]
 
 jobs:
   build-and-push:
