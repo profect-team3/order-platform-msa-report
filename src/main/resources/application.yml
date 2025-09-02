@@ -19,7 +19,10 @@ jwt:
 server:
   port: 8090
 
+#aws:
+#  region: ap-northeast-2
+
 report:
   python:
-    base-url: http://localhost:8091
+    base-url: ${LAMBDA_FUNCTION_URL}
     timeout: 60s
