@@ -12,3 +12,8 @@ spring:
 
 jwt:
   audience: ${AUTH_INTERNAL_AUDIENCE}
+
+report:
+  python:
+    base-url: arn:aws:lambda:ap-northeast-2:252098843029:function:report-python-lambda
+    timeout: 60s
