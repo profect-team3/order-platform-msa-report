@@ -2,7 +2,7 @@ name: ECR Push - report
 
 on:
   push:
-    branches: ["dev", "refactor/seperate-ci"]
+    branches: ["stage"]
 
 jobs:
   build-and-push:
@@ -25,6 +25,6 @@ jobs:
 
       - name: Build & Push report service
         run: |
-          docker build -f Dockerfile -t order-test-ecr-report:latest .
-          # docker tag order-test-ecr-report:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/order-test-ecr-report:latest
-          # docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/order-test-ecr-report:latest
+          docker build -f Dockerfile -t order-report:latest .
+          # docker tag order-report:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/order-report:latest
+          # docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/order-report:latest
